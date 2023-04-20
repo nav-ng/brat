@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <style>
+    .carousel_text{
+        position: absolute;
+            top: 75%;
+            color:black;
+            padding-left: 2rem;
+    }
+    .img_text{
+        position: absolute;
+        top: 95%;
+        color:white;
+    }
+
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/fabf2e0a42.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>B.R.A.T</title>
+</head>
+<body style="background-image: url({% static '/images/02.jpg' %}); backdrop-filter: blur(10px);">
+<header>
+    <div class="container-fluid">
+        <div class="box" style="width: 100%; padding-top: 1.5rem;">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color:cadetblue;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="http://127.0.0.1:8000/brat_app/index/#">
+                        <img src="{% static '/images/logo.jpg' %}" alt="" width="45rem" height="45rem">
+                    </a>
+                    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active text-dark" aria-current="page"
+                                   href="http://127.0.0.1:8000/brat_app/sample_home/"
+                                   style="font-weight: 500;">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false"
+                                   style="font-weight: 500;">Register</a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/brat_app/shop_register/">Shop
+                                            Register</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/brat_app/user_register/">User
+                                            Register</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: 500;">Login</a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/admin/">Admin
+                                            Login</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/brat_app/shop_login/">Shop
+                                            Login</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/brat_app/user_login/">User
+                                            Login</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item">
+                            <img src="{% static '/Images/2000x820/49.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static '/Images/2000x820/47.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item active">
+                            <img src="{% static '/Images/2000x820/50.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <div class="heading">
+                <h1 style="font-weight: bolder; margin-left: 2rem;">NEW ARRIVALS</h1>
+                <p style="margin-left: 3rem;">Just in now</p>
+            </div>
+            <div class="col-sm-12 col-md-3 d-flex justify-content-center pb-3 text-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/Images/592x592/42.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Adidas</h5>
+                        <p class="card-text"></p>
+                        <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary"
+                           style="width: 7rem;">Find More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 d-flex justify-content-center pb-3 text-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/Images/592x592/29.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nike</h5>
+                        <p class="card-text"></p>
+                        <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary"
+                           style="width: 7rem;">Find More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 d-flex justify-content-center pb-3 text-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/Images/592x592/56.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Puma</h5>
+                        <p class="card-text"></p>
+                        <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary"
+                           style="width: 7rem;">Find More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 d-flex justify-content-center pb-3 text-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/Images/592x592/80.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Woodland</h5>
+                        <p class="card-text"></p>
+                        <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary"
+                           style="width: 7rem;">Find More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <img src="{% static '/Images/2000x820/46.jpg' %}" alt="">
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-sm-12 col-lg-7">
+                <div class="col-12 col-md-6 col-lg-6 pb-3 d-flex justify-content-center text-center"
+                     style="float: left;">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static '/Images/592x592/66.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary">Find More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6 pb-3 d-flex justify-content-center text-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static '/Images/592x592/65.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="http://127.0.0.1:8000/brat_app/user_login/" class="btn btn-primary">Find More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="img col-12 d-flex justify-content-center">
+                    <img src="{% static '/Images/05.jpg' %}" alt="">
+                    <p class="img_text"></p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-5">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static '/Images/900x1085/61.jpg' %}" class="d-block w-100" alt="...">
+                            <h1 class="carousel_text" style="font-weight:bold; font-size: 50px;">SNEEK PEEK</h1>
+                            <p class="carousel_text" style="padding-top: 5rem; font-size: 25px; font-weight: 500;">
+                                SPORTS EDITION</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static '/Images/900x1085/74.jpg' %}" class="d-block w-100" alt="...">
+                            <h1 class="carousel_text text-light" style="font-weight:bold; font-size: 50px;">BRAT</h1>
+                            <p class="carousel_text text-light"
+                               style="padding-top: 5rem; font-size: 25px; font-weight: 500;">MAKE THIS SEASON YOURS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container-fluid mt-3" style="background-color: black;">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+
+                <p class="my-4" style="color: white; font-size:10px;">© BRAT India Ltd, 2023. All Rights Reserved.<br>
+                    Imprint and Legal Data</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

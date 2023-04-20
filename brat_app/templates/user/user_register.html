@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body style="background-image: url({% static '/images/wallpaper.jpg' %}); background-size: cover;">
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000/brat_app/index/#">
+                <img src="{% static '/images/logo.jpg' %}" alt="" width="50rem" height="50rem">
+            </a>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-6 d-flex justify-content-center mt-5">
+                <div class="outer-box" style="width: 20rem; height: 32rem; backdrop-filter: blur(25px); border-radius: 10px;">
+                    <div class="inner-box" style="width: 18rem; height: 30rem; margin-left: 1rem; margin-top:1rem;">
+                        <form method="post">{% csrf_token %}
+                            <div class="signin text-center pb-4">
+                                <h2 style="font-family: Bebas Neue;">Register</h2>
+                            </div>
+                            <div class="username pb-3">
+                                <input type="text" name="username" placeholder="  username"
+                                       style="width: 100%; height: 2.8rem; border-radius: 7px; font-size: 12px; border: none; color: gray; background-color: whitesmoke;">
+                            </div>
+                            <div class="email pb-3">
+                                <input type="email" name="email" placeholder="  email"
+                                       style="width: 100%; height: 2.8rem; border-radius: 7px; font-size: 12px; border: none; color: gray; background-color: whitesmoke;">
+                            </div>
+                            <div class="firstname pb-3">
+                                <input type="text" name="first_name" placeholder="  firstname"
+                                       style="width: 100%; height: 2.8rem; border-radius: 7px; font-size: 12px; border: none; color: gray; background-color: whitesmoke;">
+                            </div>
+                            <div class="lastname pb-3">
+                                <input type="text" name="last_name" placeholder="  lastname"
+                                       style="width: 100%; height: 2.8rem; border-radius: 7px; font-size: 12px; border: none; color: gray; background-color: whitesmoke;">
+                            </div>
+                            <div class="password pb-3">
+                                <input type="password" name="password" placeholder="  password"
+                                       style="width: 100%; height: 2.8rem; border-radius: 7px; font-size: 12px; border: none; color: gray; background-color: whitesmoke;">
+                            </div>
+                            <div class="button text-center pb-3">
+                                <button style="width: 35%; height: 2.5rem; border-radius: 7px; border: none; color: gray; font-weight: 600; background-color: whitesmoke;">
+                                    Sign Up
+                                </button>
+                            </div>
+                            <div class="info text-end">
+                                <a href="http://127.0.0.1:8000/brat_app/user_login/"
+                                   style="text-decoration:none; color: white; font-wight:500;">Already hava an
+                                    account</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 my-5">
+                <div class="text-center"><h3 style="font-weight: 200; font-family: Noto; color: gray">Don't
+                    Miss</h3></div>
+                <div class="text-center"><h1
+                        style="font-family:Segoe Script; font-weight: 800; font-size:5rem; color: gray;">Mystery
+                    Deals</h1></div>
+                <div class="text-center"><h3 style="font-weight: 200; font-family: Noto; color: gray;">
+                    Online only</h3></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/fabf2e0a42.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="margin-bottom: 5rem;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000/brat_app/index/#">
+                <img src="{% static '/images/logo.jpg' %}" alt="" width="50rem" height="50rem">
+            </a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item text-center">
+                        <a class="nav-link active" aria-current="page" href=""
+                           style="font-weight: 700; font-size: 1.3rem;">{{username}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                           href="http://127.0.0.1:8000/brat_app/u_notification/">
+                            <i class="fa-solid fa-bell" style="font-size: 1.3rem; padding-right: 1rem;"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Message"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4  d-flex justify-content-center text-center pb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/images/Icons/57.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title pb-1">Wishlist</h5>
+                        <a href="http://127.0.0.1:8000/brat_app/wishlist_display/" class="btn btn-primary"
+                           style="width: 7rem;">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center text-center pb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/images/Icons/59.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title pb-1">Cart</h5>
+                        <a href="http://127.0.0.1:8000/brat_app/cart_display/" class="btn btn-primary"
+                           style="width: 7rem;">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center text-center pb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '/images/Icons/58.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title pb-1">Products</h5>
+                        <a href="http://127.0.0.1:8000/brat_app/home/" class="btn btn-primary"
+                           style="width: 7rem;">Go</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/fabf2e0a42.js" crossorigin="anonymous"></script>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+</body>
+</html>

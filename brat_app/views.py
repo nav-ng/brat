@@ -194,7 +194,7 @@ def u_register(request):
 def send_mail_function(email, auth_token):
     subject = "your account has been verified"
     # f is a string literal which contain expressions inside curly brackets. the expressions are replaced by values.
-    message = f'click link to verify your account http://127.0.0.1:8000/brat_app/verify/{auth_token}'
+    message = f'click link to verify your account http://127.0.0.1:8000/verify/{auth_token}'
     email_from = EMAIL_HOST_USER
     recipient = [email]
     send_mail(subject, message, email_from, recipient)  # build-in function
@@ -377,7 +377,7 @@ def buy(request, id):
         b = buy_model(product_name=pn, product_price=pp, product_quantity=pq)
         b.save()
         total_amount = int(pp) * int(pq)
-        return render(request, "place_order.html", {'b': b, 'total_amount': total_amount})
+        return render(request, "user/place_order.html", {'b': b, 'total_amount': total_amount})
     return render(request, 'user/buy.html', {'a': a, 'im': im})
 
 
@@ -396,7 +396,7 @@ def card(request):
         a = User.objects.get(id=u_id)
         mail = a.email
         send_mail_func(mail, today)
-        return render(request, 'order_summary.html', {'today': today})
+        return render(request, 'user/order_summary.html', {'today': today})
     return render(request, 'user/payment_details.html')
 
 

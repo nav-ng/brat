@@ -173,7 +173,7 @@ def u_register(request):
         f_name = request.POST.get('first_name')
         l_name = request.POST.get('last_name')
         password = request.POST.get('password')
-        if User.objects.filter(username=u_name).first():  # it will get the first object from the filter query
+        if User.objects.filter(username=u_name).first():
             messages.success(request, 'username already taken')
             return redirect(u_register)
         a=User.objects.filter(email=email).first()
@@ -182,10 +182,10 @@ def u_register(request):
             if b.is_verified:
                 messages.success(request, 'email already exist')
                 return redirect(u_register)
+            
         user_obj = User(username=u_name, email=email, first_name=f_name, last_name=l_name)
         user_obj.set_password(password)
         user_obj.save()
-
         auth_token = str(uuid.uuid4())
         profile_obj = profile.objects.create(user=user_obj, auth_token=auth_token)
         profile_obj.save()

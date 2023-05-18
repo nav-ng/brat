@@ -36,9 +36,9 @@ def s_register(request):
                 b.save()
                 return redirect(s_login)
             else:
-                return HttpResponse("password not match")
+                messages.success(request, 'password does not match')
         else:
-            return HttpResponse("registration failed")
+            return messages.success(request, 'Registration failed')
     return render(request, 'shop/shop_register.html')
 
 
@@ -54,7 +54,7 @@ def s_login(request):
                     request.session['sid'] = i.id
                     return redirect(sl_view)
             else:
-                return HttpResponse("login failed")
+                messages.success(request, 'Login failed')
     return render(request, 'shop/shop_login.html')
 
 
@@ -103,13 +103,12 @@ def item_delete(request, id):
 
 def posted_items_display(request):
     s_id = request.session['sid']
-    a = iu_model.objects.all()
+    a = iu_model.objects.filter(shop_id=s_id)
     name = []
     price = []
     description = []
     image = []
     p_id = []
-    shop_id = []
     for i in a:
         pn = i.product_name
         name.append(pn)
@@ -121,10 +120,12 @@ def posted_items_display(request):
         image.append(str(pi).split('/')[-1])
         pid = i.id
         p_id.append(pid)
-        sid = i.shop_id
-        shop_id.append(sid)
-    mylist = zip(name, price, description, image, p_id, shop_id)
-    return render(request, 'shop/posted_items_display.html', {'mylist': mylist, 's_id': s_id})
+    mylist = zip(name, price, description, image, p_id)
+    if a:
+        l=1
+    else:
+        l=0
+    return render(request, 'shop/posted_items_display.html', {'mylist': mylist, 'l':l})
 
 
 def sample_home(request):
@@ -146,7 +147,8 @@ def sample_home(request):
         pid = i.id
         p_id.append(pid)
     mylist = zip(name, price, description, image, p_id)
-    return render(request, 'sample_home.html', {'mylist': mylist})
+    l=len(name)
+    return render(request, 'sample_home.html', {'mylist': mylist, 'l':l})
 
 
 def sn(request):
@@ -158,12 +160,9 @@ def sn(request):
         m_content.append(mc)
         md = i.date
         m_date.append(md)
-    const=0
-    k=0
-    if len(m_content)>0:
-        k=1
     mylist = zip(m_content, m_date)
-    return render(request, 'shop/s_notification.html', {'mylist': mylist, 'const':const, 'k':k,})
+    l=len(m_content)
+    return render(request, 'shop/s_notification.html', {'mylist': mylist, 'l':l,})
 
 
 def u_register(request):
@@ -189,19 +188,18 @@ def u_register(request):
         auth_token = str(uuid.uuid4())
         profile_obj = profile.objects.create(user=user_obj, auth_token=auth_token)
         profile_obj.save()
-        send_mail_function(email, auth_token)  # used-defined function
+        send_mail_function(email, auth_token)
         return render(request, 'user/success.html')
     return render(request, 'user/user_register.html')
 
 
 
 def send_mail_function(email, auth_token):
-    subject = "your account has been verified"
-    # f is a string literal which contain expressions inside curly brackets. the expressions are replaced by values.
+    subject = "verify your account here"
     message = f'click the link to verify your account http://127.0.0.1:8000/verify/{auth_token}/{email}/'
     email_from = EMAIL_HOST_USER
     recipient = [email]
-    send_mail(subject, message, email_from, recipient)  # build-in function
+    send_mail(subject, message, email_from, recipient)
 
 
 def verify(request, auth_token, email):
@@ -266,7 +264,8 @@ def home(request):
         id1 = i.id
         id.append(id1)
     mylist = zip(name, price, description, image, id)
-    return render(request, 'user/home.html', {'mylist': mylist})
+    l=len(name)
+    return render(request, 'user/home.html', {'mylist': mylist, 'l':l})
 
 
 def u_profile(request):
@@ -277,9 +276,11 @@ def u_profile(request):
 def wishlist(request, id):
     u_id = request.session['uid']
     a = iu_model.objects.get(id=id)
-    if wishlist_model.objects.filter(product_name=a.product_name):
-        messages.success(request, 'Product is already in the wishlist')
-        return redirect(home)
+    b=wishlist_model.objects.filter(user_id=u_id)
+    for i in b:
+        if i.product_name==a.product_name:
+            messages.success(request, 'Product is already in the wishlist')
+            return redirect(home)
     else:
         b = wishlist_model(user_id=u_id, product_name=a.product_name, product_price=a.product_price,
                            product_description=a.product_description, product_image=a.product_image)
@@ -290,12 +291,14 @@ def wishlist(request, id):
 def cart(request, id):
     u_id = request.session['uid']
     a = iu_model.objects.get(id=id)
-    if cart_model.objects.filter(product_name=a.product_name):
-        messages.success(request, 'Product is already in the Cart')
-        return redirect(home)
+    b=cart_model.objects.filter(user_id=u_id)
+    for i in b:
+        if i.product_name==a.product_name:
+            messages.success(request, 'Product is already in the cart')
+            return redirect(home)
     else:
         b = cart_model(user_id=u_id, product_name=a.product_name, product_price=a.product_price,
-                       product_description=a.product_description, product_image=a.product_image)
+                           product_description=a.product_description, product_image=a.product_image)
         b.save()
     return redirect(home)
 
@@ -303,9 +306,11 @@ def cart(request, id):
 def wishlist_to_cart(request, id):
     u_id = request.session['uid']
     a = wishlist_model.objects.get(id=id)
-    if cart_model.objects.filter(product_name=a.product_name):
-        messages.success(request, 'product is already in the cart')
-        return redirect(wishlist_display)
+    b=cart_model.objects.filter(user_id=u_id)
+    for i in b:
+        if i.product_name==a.product_name:
+            messages.success(request, 'product is already in the cart')
+            return redirect(wishlist_display)
     else:
         b = cart_model(user_id=u_id, product_name=a.product_name, product_price=a.product_price,
                        product_description=a.product_description, product_image=a.product_image)
@@ -315,13 +320,12 @@ def wishlist_to_cart(request, id):
 
 def wishlist_display(request):
     u_id = request.session['uid']
-    a = wishlist_model.objects.all()
+    a = wishlist_model.objects.filter(user_id=u_id)
     name = []
     price = []
     description = []
     image = []
     id = []
-    user_id = []
     for i in a:
         pn = i.product_name
         name.append(pn)
@@ -333,21 +337,22 @@ def wishlist_display(request):
         image.append(str(pi).split('/')[-1])
         id1 = i.id
         id.append(id1)
-        us_id = i.user_id
-        user_id.append(us_id)
-    mylist = zip(name, price, description, image, id, user_id)
-    return render(request, 'user/wishlist.html', {'mylist': mylist, 'u_id': u_id})
+    mylist = zip(name, price, description, image, id,)
+    if a:
+        l=1
+    else:
+        l=0
+    return render(request, 'user/wishlist.html', {'mylist': mylist, 'l':l})
 
 
 def cart_display(request):
     u_id = request.session['uid']
-    a = cart_model.objects.all()
+    a = cart_model.objects.filter(user_id=u_id)
     name = []
     price = []
     description = []
     image = []
     id = []
-    user_id = []
     for i in a:
         pn = i.product_name
         name.append(pn)
@@ -359,10 +364,12 @@ def cart_display(request):
         image.append(str(pi).split('/')[-1])
         id1 = i.id
         id.append(id1)
-        us_id = i.user_id
-        user_id.append(us_id)
-    mylist = zip(name, price, description, image, id, user_id)
-    return render(request, 'user/cart.html', {'mylist': mylist, 'u_id': u_id})
+    mylist = zip(name, price, description, image, id)
+    if a:
+        l=1
+    else:
+        l=0
+    return render(request, 'user/cart.html', {'mylist': mylist, 'l':l})
 
 
 def wishlist_delete(request, id):
@@ -429,9 +436,6 @@ def un(request):
         m_content.append(mc)
         md = i.date
         m_date.append(md)
-    const=0
-    k=0
-    if len(m_content)>0:
-        k=1
     mylist = zip(m_content, m_date)
-    return render(request, 'user/u_notification.html', {'mylist': mylist, 'const':const, 'k':k })
+    l=len(m_content)
+    return render(request, 'user/u_notification.html', {'mylist': mylist, 'l':l })

@@ -33,8 +33,8 @@
 <section>
     <div class="container mt-5">
         <div class="row">
-            {% for i,j,k,l,m,n in mylist %}
-            {% if s_id == n %}
+            {% if l > 0 %}
+            {% for i,j,k,l,m in mylist %}
             <div class="col-lg-4 d-flex justify-content-center text-center pb-4">
                 <div class="card" style="width: 18rem;">
                     <img src="{% static l %}" class="card-img-top" alt="...">
@@ -49,8 +49,15 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
             {% endfor %}
+            {% else %}
+            <div class="col d-flex justify-content-center">
+                <div class="alert alert-primary text-center" role="alert" style="width:100%; height:6rem;">
+                    <p>You don't add any items<br>
+                    Go back and<a href="http://127.0.0.1:8000/items_upload/" style="text-decoration: none;"> upload </a>items</p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

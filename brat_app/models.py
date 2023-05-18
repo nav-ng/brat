@@ -69,7 +69,7 @@ class buy_model(models.Model):
 class card_model(models.Model):
     card_holder_name = models.CharField(max_length=50)
     card_number = models.IntegerField()
-    date = models.CharField(max_length=50)
+    date = models.IntegerField()
     security_code = models.IntegerField()
 
     def __str__(self):

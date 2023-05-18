@@ -80,8 +80,14 @@ class sn_model(models.Model):
     content = models.CharField(max_length=200)
     date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return self.data
+
 
 class un_model(models.Model):
     content = models.CharField(max_length=200)
     date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date
 

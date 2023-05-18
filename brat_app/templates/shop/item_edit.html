@@ -24,14 +24,14 @@
                         <img src="{% static im %}" height="200px" width="200px">
                     </div>
                     <div class="name text-center pb-2">
-                        <input type="text" name="product_name" value="{{a.product_name}}" style="width:100%;">
+                        <input type="text" name="product_name" value="{{a.product_name}}" style="width:100%;" required>
                     </div>
                     <div class="price text-center pb-2">
-                        <input type="number" name="product_price" value="{{a.product_price}}" style="width:100%;">
+                        <input type="number" name="product_price" value="{{a.product_price}}" style="width:100%;" required>
                     </div>
                     <div class="description text-center pb-2">
                         <input type="text" name="product_description" value="{{a.product_description}}"
-                               style="width:100%;">
+                               style="width:100%;" required>
                     </div>
                     <div class="file text-center pb-2">
                         <input type="file" name="product_image">

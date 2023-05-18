@@ -48,7 +48,6 @@ def s_login(request):
         if a.is_valid():
             nm = a.cleaned_data["shop_name"]
             ps = a.cleaned_data['shop_password']
-            request.session['s_name'] = nm  # To make a variable global
             s = sr_model.objects.all()
             for i in s:
                 if nm == i.shop_name and ps == i.shop_password:
@@ -60,12 +59,10 @@ def s_login(request):
 
 
 def sl_view(request):
-    shop_name = request.session['s_name']
-    return render(request, 'shop/sl_view.html', {'shop_name': shop_name})
+    return render(request, 'shop/sl_view.html')
 
 
 def items_upload(request):
-    shop_name = request.session['s_name']
     if request.method == 'POST':
         a = iu_form(request.POST, request.FILES)
         id = request.session['sid']
@@ -79,7 +76,7 @@ def items_upload(request):
             return redirect(items_upload)
         else:
             return HttpResponse("upload failed")
-    return render(request, 'shop/items_upload.html', {'shop_name': shop_name})
+    return render(request, 'shop/items_upload.html')
 
 
 def item_edit(request, id):
@@ -105,7 +102,6 @@ def item_delete(request, id):
 
 
 def posted_items_display(request):
-    shop_name = request.session['s_name']
     s_id = request.session['sid']
     a = iu_model.objects.all()
     name = []
@@ -128,7 +124,7 @@ def posted_items_display(request):
         sid = i.shop_id
         shop_id.append(sid)
     mylist = zip(name, price, description, image, p_id, shop_id)
-    return render(request, 'shop/posted_items_display.html', {'mylist': mylist, 's_id': s_id, 'shop_name': shop_name})
+    return render(request, 'shop/posted_items_display.html', {'mylist': mylist, 's_id': s_id})
 
 
 def sample_home(request):
@@ -162,8 +158,12 @@ def sn(request):
         m_content.append(mc)
         md = i.date
         m_date.append(md)
+    const=0
+    k=0
+    if len(m_content)>0:
+        k=1
     mylist = zip(m_content, m_date)
-    return render(request, 'shop/s_notification.html', {'mylist': mylist})
+    return render(request, 'shop/s_notification.html', {'mylist': mylist, 'const':const, 'k':k,})
 
 
 def u_register(request):
@@ -176,9 +176,12 @@ def u_register(request):
         if User.objects.filter(username=u_name).first():  # it will get the first object from the filter query
             messages.success(request, 'username already taken')
             return redirect(u_register)
-        if User.objects.filter(email=email).first():
-            messages.success(request, 'email already exist')
-            return redirect(u_register)
+        a=User.objects.filter(email=email).first()
+        if a:
+            b=profile.objects.filter(user=a).first()
+            if b.is_verified:
+                messages.success(request, 'email already exist')
+                return redirect(u_register)
         user_obj = User(username=u_name, email=email, first_name=f_name, last_name=l_name)
         user_obj.set_password(password)
         user_obj.save()
@@ -191,17 +194,24 @@ def u_register(request):
     return render(request, 'user/user_register.html')
 
 
+
 def send_mail_function(email, auth_token):
     subject = "your account has been verified"
     # f is a string literal which contain expressions inside curly brackets. the expressions are replaced by values.
-    message = f'click link to verify your account http://127.0.0.1:8000/verify/{auth_token}'
+    message = f'click the link to verify your account http://127.0.0.1:8000/verify/{auth_token}/{email}/'
     email_from = EMAIL_HOST_USER
     recipient = [email]
     send_mail(subject, message, email_from, recipient)  # build-in function
 
 
-def verify(request, auth_token):
+def verify(request, auth_token, email):
     profile_obj = profile.objects.filter(auth_token=auth_token).first()
+    a=User.objects.filter(email=email).first()
+    if a:
+        b=profile.objects.filter(user=a).first()
+        if b.is_verified:
+            messages.success(request, 'this email is already used')
+            return redirect(u_register)
     if profile_obj:
         if profile_obj.is_verified:
             messages.success(request, 'your account is already verified')
@@ -374,6 +384,8 @@ def buy(request, id):
         pn = request.POST.get('product_name')
         pp = request.POST.get('product_price')
         pq = request.POST.get('product_quantity')
+        if pq=="":
+            pq=1
         b = buy_model(product_name=pn, product_price=pp, product_quantity=pq)
         b.save()
         total_amount = int(pp) * int(pq)
@@ -417,5 +429,9 @@ def un(request):
         m_content.append(mc)
         md = i.date
         m_date.append(md)
+    const=0
+    k=0
+    if len(m_content)>0:
+        k=1
     mylist = zip(m_content, m_date)
-    return render(request, 'user/u_notification.html', {'mylist': mylist})
+    return render(request, 'user/u_notification.html', {'mylist': mylist, 'const':const, 'k':k })

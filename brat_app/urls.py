@@ -13,7 +13,7 @@ urlpatterns = [
     path('item_edit/<int:id>', item_edit),
     path('item_delete/<int:id>', item_delete),
     path('user_register/', u_register),
-    path('verify/<auth_token>', verify),
+    path('verify/<auth_token>/<str:email>/', verify),
     path('user_login/', u_login),
     path('wishlist/<int:id>', wishlist),
     path('cart/<int:id>', cart),
